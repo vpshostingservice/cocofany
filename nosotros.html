@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros – Cocofany Peluquería Canina</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #F06292;
+    --pink-light: #FCE4EC;
+    --pink-medium: #F48FB1;
+    --pink-dark: #C2185B;
+    --cream: #FFF8F9;
+    --white: #ffffff;
+    --text: #3D2035;
+    --text-soft: #7B4F6A;
+    --radius: 20px;
+    --shadow: 0 8px 32px rgba(240,98,146,0.13);
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* ── LOGIN OVERLAY ── */
+  #login-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #0d0d0d;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #login-watermark {
+    display: none;
+  }
+  @keyframes wm-scroll {
+    0%   { background-position: 0 0; }
+    100% { background-position: 0 60px; }
+  }
+  #login-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='60'%3E%3Ctext x='10' y='38' font-family='Courier New,monospace' font-size='14' font-weight='bold' letter-spacing='2' fill='%23ffffff'%3EAG%3Ctspan fill='%23AAFF00'%3E_%3C/tspan%3ESYNDICATE%3C/text%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 280px 60px;
+    opacity: 0.13;
+    transform: rotate(-18deg) scale(1.5);
+    pointer-events: none;
+    animation: wm-scroll 6s linear infinite;
+  }
+  #login-box {
+    position: relative;
+    z-index: 1;
+    background: #161616;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 60px rgba(0,0,0,0.6), 0 0 0 1px #2a2a2a;
+    border: 1px solid #2a2a2a;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+  .ag-block {
+    margin-top: 2rem;
+    background: #0d0d0d;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    text-align: left;
+    border: 1px solid #1e1e1e;
+  }
+  .ag-block-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+  }
+  .ag-logo-text {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #fff;
+  }
+  .ag-logo-text .ag-green { color: #AAFF00; }
+  .ag-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.65rem;
+    color: #AAFF00;
+    letter-spacing: 0.1em;
+  }
+  .ag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #AAFF00;
+    animation: ag-pulse 2s infinite;
+  }
+  @keyframes ag-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .ag-tagline {
+    font-family: 'Courier New', monospace;
+    font-size: 0.62rem;
+    color: #555;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* footer brand */
+  .ag-footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  .ag-footer-logo {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #fff;
+    background: #111;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .ag-footer-logo span { color: #AAFF00; }
+  .ag-footer-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  #login-box .logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: var(--pink);
+    margin-bottom: 0.3rem;
+  }
+  #login-box p {
+    font-size: 0.88rem;
+    color: #888;
+    margin-bottom: 1.8rem;
+  }
+  #login-box input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #2a2a2a;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    color: #fff;
+    background: #1f1f1f;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #login-box input::placeholder { color: #555; }
+  #login-box input:focus { border-color: #AAFF00; }
+  #login-box button {
+    width: 100%;
+    background: var(--pink);
+    color: white;
+    border: none;
+    padding: 0.85rem;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  #login-box button:hover { background: var(--pink-dark); }
+  #login-error {
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.8rem;
+    display: none;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #fce4ec;
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .nav-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.7rem;
+    color: var(--pink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-soft);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    background: var(--pink);
+    color: white !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--pink-dark) !important; color: white !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, #fff0f5 0%, #fce4ec 50%, #fff8f9 100%);
+    display: flex; align-items: center;
+    padding: 100px 5% 60px;
+    gap: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #f8bbd0 0%, transparent 70%);
+    opacity: 0.4;
+  }
+  .hero-text { flex: 1; max-width: 560px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    font-weight: 800;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.2rem;
+    border: 1px solid #f8bbd0;
+  }
+  .hero-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    color: var(--pink);
+    line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--pink);
+    color: white;
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(240,98,146,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(240,98,146,0.4); }
+  .btn-outline {
+    color: var(--pink);
+    padding: 0.85rem 2rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    border: 2px solid var(--pink);
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: var(--pink-light); }
+  .hero-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+  }
+  .hero-img-placeholder {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img-placeholder::after {
+    content: '🐾';
+    position: absolute; bottom: 16px; right: 20px;
+    font-size: 2rem; opacity: 0.3;
+  }
+  .hero-stats {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  }
+  .stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid #fce4ec;
+    min-width: 110px;
+  }
+  .stat-num {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.8rem;
+    color: var(--pink);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 5%; }
+  .section-tag {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 50px;
+    margin-bottom: 0.8rem;
+    border: 1px solid #f8bbd0;
+  }
+  .section-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+  .text-center { text-align: center; }
+  .section-desc.centered { margin: 0 auto 3rem; }
+
+  /* ── SERVICES ── */
+  #servicios { background: white; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--cream);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    border: 1px solid #fce4ec;
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--pink-medium));
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .service-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    display: block;
+    line-height: 1;
+  }
+  .service-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .service-desc {
+    font-size: 0.92rem;
+    color: var(--text-soft);
+    line-height: 1.65;
+  }
+  .service-price {
+    display: inline-block;
+    margin-top: 1rem;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 0.25rem 0.8rem;
+    border-radius: 50px;
+  }
+
+  /* ── OZONE + NUTRITION ── */
+  #especiales {
+    background: linear-gradient(135deg, #fff0f5 0%, #fce4ec 100%);
+  }
+  .especiales-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  .especial-card {
+    background: white;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid #fce4ec;
+  }
+  .especial-icon {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: var(--pink-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .especial-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.5rem;
+    color: var(--pink);
+    margin-bottom: 0.8rem;
+  }
+  .especial-desc {
+    font-size: 0.97rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+  .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .benefits-list li {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 0.92rem; color: var(--text);
+    font-weight: 600;
+  }
+  .benefits-list li::before {
+    content: '✓';
+    color: var(--pink);
+    font-weight: 800;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── ABOUT ── */
+  #nosotros {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+  .about-visual {
+    flex: 1;
+    min-width: 280px;
+    max-width: 460px;
+    position: relative;
+
+  }
+  .about-img-wrap {
+    position: relative;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7rem;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .about-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .about-badge {
+    position: absolute;
+    bottom: 0; right: 0;
+    background: white;
+    border-radius: 16px;
+    padding: 0.9rem 1.3rem;
+    box-shadow: 0 8px 32px rgba(240,98,146,0.25);
+    border: 1px solid #fce4ec;
+    text-align: center;
+    z-index: 2;
+  }
+  .about-badge strong {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.6rem;
+    color: var(--pink);
+    display: block;
+  }
+  .about-badge span { font-size: 0.78rem; color: var(--text-soft); font-weight: 700; }
+  .about-text { flex: 1; min-width: 280px; }
+  .about-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .value-item {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 1rem;
+    border: 1px solid #fce4ec;
+  }
+  .value-icon { font-size: 1.4rem; margin-bottom: 0.4rem; display: block; }
+  .value-title { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+  .value-desc { font-size: 0.82rem; color: var(--text-soft); margin-top: 0.2rem; }
+
+  /* ── TESTIMONIALS ── */
+  #opiniones {
+    background: var(--cream);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .testimonial-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: 0 4px 20px rgba(240,98,146,0.08);
+    border: 1px solid #fce4ec;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute; top: 1rem; right: 1.5rem;
+    font-family: 'Pacifico', cursive;
+    font-size: 4rem;
+    color: var(--pink-light);
+    line-height: 1;
+  }
+  .stars { color: #f9a825; font-size: 1rem; margin-bottom: 0.8rem; }
+  .testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    font-style: italic;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .author-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: var(--pink-light);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.9rem;
+    color: var(--pink-dark);
+    flex-shrink: 0;
+  }
+  .author-name { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+  .author-pet { font-size: 0.78rem; color: var(--text-soft); }
+
+  /* ── CONTACT ── */
+  #contacto {
+    background: linear-gradient(135deg, #c2185b 0%, #f06292 40%, #f48fb1 100%);
+    color: white;
+    text-align: center;
+  }
+  #contacto .section-title { color: white; font-size: clamp(2rem, 4vw, 3rem); }
+  #contacto .section-desc { color: rgba(255,255,255,0.85); margin: 0 auto 2.5rem; }
+  .contact-cards {
+    display: flex; flex-wrap: wrap; gap: 1.5rem;
+    justify-content: center; margin-bottom: 2.5rem;
+  }
+  .contact-card {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    min-width: 180px;
+    backdrop-filter: blur(8px);
+    text-align: center;
+  }
+  .contact-card-icon { font-size: 2rem; margin-bottom: 0.6rem; display: block; }
+  .contact-card-label {
+    font-size: 0.78rem; font-weight: 800;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 0.3rem;
+  }
+  .contact-card-value { font-weight: 800; font-size: 1rem; color: white; }
+  .btn-white {
+    background: white;
+    color: var(--pink-dark);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    text-decoration: none;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    display: inline-block;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+  .schedule-info {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.6);
+    padding: 2.5rem 5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.4rem;
+    color: var(--pink-medium);
+    text-decoration: none;
+  }
+  .footer-text { font-size: 0.83rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.83rem; font-weight: 700; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--pink-medium); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; }
+  .fade-up:nth-child(3) { transition-delay: 0.2s; }
+  .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+  /* ── RESPONSIVE ── */
+  /* Hamburger button */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--pink);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 4%; position: relative; }
+    .nav-hamburger { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 68px; left: 0; right: 0;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(12px);
+      flex-direction: column;
+      padding: 1rem 5% 1.5rem;
+      gap: 0;
+      border-bottom: 1px solid #fce4ec;
+      box-shadow: 0 8px 20px rgba(240,98,146,0.1);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { border-bottom: 1px solid #fce4ec; }
+    .nav-links a { display: block; padding: 0.8rem 0; font-size: 1rem; }
+    .nav-cta { margin-top: 0.5rem; text-align: center; display: block; border: none !important; }
+    .hero { flex-direction: column; padding: 100px 5% 50px; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .hero-desc { margin: 0 auto 2rem; }
+    .hero-badge { margin: 0 auto 1.2rem; }
+    #nosotros { flex-direction: column; text-align: center; padding: 60px 5%; }
+    .about-visual { max-width: 100%; }
+    .about-values { grid-template-columns: 1fr; }
+    section { padding: 60px 5%; }
+  }
+</style>
+<script>if(sessionStorage.getItem('cocofany_auth')==='1'){document.write('<style>#login-overlay{display:none!important}</style>');}</script>
+</head>
+<body>
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay" style="display:none">
+  <div id="login-watermark"></div>
+  <div id="login-box">
+    <div class="logo">Cocofany</div>
+    <p>Acceso privado — introduce tus credenciales</p>
+    <input type="text" id="login-user" placeholder="Usuario" autocomplete="username">
+    <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password">
+    <button onclick="checkLogin()">Entrar</button>
+    <div id="login-error">Usuario o contraseña incorrectos ❌</div>
+    <a href="https://ag-syndicate.com/" target="_blank" class="ag-block" style="text-decoration:none;display:block;">
+      <div class="ag-block-top">
+        <span class="ag-logo-text">AG<span class="ag-green">_</span>SYNDICATE</span>
+        <span class="ag-status"><span class="ag-dot"></span>ONLINE</span>
+      </div>
+      <div class="ag-tagline">// Infraestructura &amp; Automatización</div>
+    </a>
+  </div>
+</div>
+<script>
+  if(sessionStorage.getItem('cocofany_auth')!=='1'){
+    document.getElementById('login-overlay').style.display='flex';
+  }
+</script>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Cocofany</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="servicios.html" onclick="closeMenu()">Servicios</a></li>
+    <li><a href="nosotros.html" onclick="closeMenu()">Nosotros</a></li>
+    <li><a href="opiniones.html" onclick="closeMenu()">Opiniones</a></li>
+    <li><a href="contacto.html" class="nav-cta" onclick="closeMenu()">Reservar cita</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMenu()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div style="padding-top:68px;"></div>
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="about-visual">
+    <div class="about-img-wrap">
+      <img 
+        src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=700&auto=format&q=80" 
+        alt="Perro golden retriever en peluquería"
+        loading="lazy"
+      >
+    </div>
+
+  </div>
+  <div class="about-text">
+    <span class="section-tag">Quiénes somos</span>
+    <h2 class="section-title">Una peluquería con corazón</h2>
+    <p class="section-desc" style="margin-bottom:1rem;">
+      En Cocofany somos mucho más que un servicio de peluquería. 
+      Somos un equipo apasionado por los animales que entiende que 
+      tu perro es un miembro más de tu familia.
+    </p>
+    <p style="font-size:0.97rem; color:var(--text-soft); line-height:1.75; margin-bottom:1.5rem;">
+      Tratamos a cada perro con paciencia, respeto y cariño, adaptándonos 
+      a su carácter. Nuestras instalaciones son seguras, limpias y cómodas 
+      para que tu compañero esté tranquilo y a gusto durante toda su visita.
+    </p>
+    <div class="about-values">
+      <div class="value-item">
+        <span class="value-icon">❤️</span>
+        <div class="value-title">Trato cercano</div>
+        <p class="value-desc">Te conocemos a ti y a tu perro por su nombre</p>
+      </div>
+      <div class="value-item">
+        <span class="value-icon">🎓</span>
+        <div class="value-title">Formación continua</div>
+        <p class="value-desc">Actualizamos técnicas y productos constantemente</p>
+      </div>
+      <div class="value-item">
+        <span class="value-icon">🔬</span>
+        <div class="value-title">Productos premium</div>
+        <p class="value-desc">Solo usamos productos testados y seguros</p>
+      </div>
+      <div class="value-item">
+        <span class="value-icon">🛡️</span>
+        <div class="value-title">Bienestar animal</div>
+        <p class="value-desc">El confort y la salud de tu perro, primero siempre</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Cocofany</a>
+  <p class="footer-text">© 2025 Cocofany Peluquería Canina. Todos los derechos reservados.</p>
+  <div class="ag-footer-brand">
+    <span class="ag-footer-logo">AG<span>_</span>SYNDICATE</span>
+    <span class="ag-footer-sub">// Infraestructura &amp; Hosting</span>
+  </div>
+  <div class="footer-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#contacto">Contacto</a>
+    <a href="#">Aviso Legal</a>
+  </div>
+</footer>
+<script>
+  function checkLogin() {
+    const user = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim();
+    if (user === 'laura-ag-syndicate' && pass === 'ag-syndicate') {
+      sessionStorage.setItem('cocofany_auth', '1');
+      document.getElementById('login-overlay').style.display = 'none';
+    } else {
+      document.getElementById('login-error').style.display = 'block';
+      document.getElementById('login-pass').value = '';
+      document.getElementById('login-pass').focus();
+    }
+  }
+
+  // ── Hamburger ──
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+    document.getElementById('nav-hamburger').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('nav-links').classList.remove('open');
+    document.getElementById('nav-hamburger').classList.remove('open');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Watermark
+    const wm = document.getElementById('login-watermark');
+    if (wm) {
+      for (let i = 0; i < 200; i++) {
+        const s = document.createElement('span');
+        s.className = 'wm-item';
+        s.innerHTML = '<span style="color:#AAFF00">AG</span><span style="color:#ffffff">_SYNDICATE</span>';
+        wm.appendChild(s);
+      }
+    }
+    // Enter key
+    ['login-user','login-pass'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') checkLogin(); });
+    });
+    // Scroll animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  });
+</script>
+</body></html>
